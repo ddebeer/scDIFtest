@@ -49,7 +49,7 @@ scDIFtest <- function(object, order_by = NULL, functional = NULL, item_selection
   # extract from mirt-object
   allItemNames <- extract.mirt(object, "itemnames")
   nItem <- extract.mirt(object, "nitems")
-  data.name <- format(object@Call$data)
+  data.name <- 'if'(is.name(object@Call$data), object@Call$data, format(object@Call$data))
   itemtype <- extract.mirt(object, "itemtype")
 
   # compute the score contributions for all item parameters

@@ -46,9 +46,9 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
     for(item in item_selection){
       single_test <- tests[[item]]$single_test
 #      cat("\n")
-      cat(strwrap(paste0("DIF-test for ", item), prefix = prefix), sep = "\n")
-      cat(strwrap(paste0("Person covariate: ", test_info$order_name), prefix = prefix), sep = "\n")
-      cat(strwrap(paste0("Test statistic type: ", test_info$stat_name), prefix = prefix), sep = "\n")
+      cat(strwrap(paste0("DIF-test for ", item), prefix = "\t"), sep = "\n")
+      cat(strwrap(paste0("Person covariate: ", test_info$order_name), prefix = "\t"), sep = "\n")
+      cat(strwrap(paste0("Test statistic type: ", test_info$stat_name), prefix = "\t"), sep = "\n")
       print(single_test,...)
     }
   }

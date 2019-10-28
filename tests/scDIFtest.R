@@ -32,4 +32,13 @@ print(test, digits = 3)
 # plot(test, item_selection = c(3:5))
 
 
-
+# library(TAM)
+#
+# data("data.timssAusTwn.scored")
+# summary(data.timssAusTwn.scored)
+# mod <- mirt(model = 1, data = data.timssAusTwn.scored[, -c(12:14)])
+#
+# mod
+# test <- scDIFtest(mod, order_by = factor(data.timssAusTwn.scored$ITSEX))
+# test
+# print(test, item_selection = 4)

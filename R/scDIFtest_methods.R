@@ -24,7 +24,7 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
   test_info <- x$info$test_info
 
   if(is.null(item_selection)){
-    out <- summary(x)
+    out <- summary(x, ...)
     cat("\n")
     cat(strwrap(paste0("Score Based DIF-tests for ", dim(out)[1], " items"),
                 prefix = "\t"), sep = "\n")
@@ -46,9 +46,9 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
     for(item in item_selection){
       single_test <- tests[[item]]$single_test
 #      cat("\n")
-#      cat(strwrap(paste0("DIF-test for ", item), prefix = prefix), sep = "\n")
-#      cat(strwrap(paste0("Person covariate: ", test_info$order_name), prefix = prefix), sep = "\n")
-#      cat(strwrap(paste0("Test statistic type: ", test_info$stat_name), prefix = prefix), sep = "\n")
+      cat(strwrap(paste0("DIF-test for ", item), prefix = prefix), sep = "\n")
+      cat(strwrap(paste0("Person covariate: ", test_info$order_name), prefix = prefix), sep = "\n")
+      cat(strwrap(paste0("Test statistic type: ", test_info$stat_name), prefix = prefix), sep = "\n")
       print(single_test,...)
     }
   }
@@ -56,7 +56,7 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
 
 
 # summary method
-summary.scDIFtest <- function(x, ...){
+summary.scDIFtest <- function(x, method = "fdr", ...){
   tests <- x$tests
   item_info <- x$info$item_info
   summary <- as.data.frame(do.call(rbind, lapply(tests, function(test)
@@ -65,8 +65,9 @@ summary.scDIFtest <- function(x, ...){
 
   summary <- cbind(item_type = item_info$item_type ,
                    n_est_pars = sapply(item_info$colNrs, length),
-                   summary)
-  names(summary) <- c("item_type", "n_est_pars", "statistic", "p.value")
+                   summary, p.adjust(summary[,2], method = method))
+  names(summary) <- c("item_type", "n_est_pars", "statistic", "p.value",
+                      paste0("p.", method))
   summary
 }
 

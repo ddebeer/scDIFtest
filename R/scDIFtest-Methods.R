@@ -36,9 +36,11 @@
 #' @param item_selection either \code{NULL} or an integer vector selecting the
 #'         item numbers. When \code{items = NULL} (the default), the DIF test
 #'         is done for all items.
+#' @param method one of the strings in \code{p.adjust.methods}.
 #' @param ... other argements passed to the method.
 #'
 #' @importFrom graphics plot
+#' @importFrom stats p.adjust
 #' @exportMethod print.scDIFtest
 #' @exportMethod summary.scDIFtest
 #' @exportMethod plot.scDIFtest

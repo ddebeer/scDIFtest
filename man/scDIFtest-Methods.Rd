@@ -21,6 +21,8 @@ item numbers. When \code{items = NULL} (the default), the DIF test
 is done for all items.}
 
 \item{...}{other argements passed to the method.}
+
+\item{method}{one of the strings in \code{p.adjust.methods}.}
 }
 \description{
 \code{print}, \code{summary}, and \code{plot} methods for objects of the

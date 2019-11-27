@@ -32,7 +32,7 @@ An object of class \code{scDIFtest} \link{scDIFtest-Methods}, which is a list wi
      \item{tests}{A named list with a number of elements equal to the number of
                   the items for which DIF should be detected. Each element
                   contains information both about the test \code{single_test}
-                  as well as the \code{\link[strucchange]{efpFunction}}}
+                  as well as the \code{\link[strucchange]{efpFunctional}}}
      \item{info}{A named list with two elements. \code{test_info} contains
                  information such as used test statistic and the used covariate.
                  \code{item_info} contains information about the items such as
@@ -69,7 +69,9 @@ Lagrange Multiplier Test for Unordered Groups is used.
   #   scDIFtest object. This means that one can use this gefp to test the
   #   general hypothesis of measurement invariance with respect to the
   #   chosen covariate.
+  \dontrun{
   strucchange::sctest(DIF$gefp)
+  }
 
 
 }

@@ -13,7 +13,8 @@ Description: This R-package can be used for item-wise DIF tests for fitted
 Imports: sandwich, 
          strucchange, 
          mirt,
-         zoo
+         zoo,
+Suggests: mvtnorm
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

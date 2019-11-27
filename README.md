@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ddebeer/scDIFtest.svg?branch=master)](https://travis-ci.org/ddebeer/scDIFtest)
+
 # Item-wise score-based tests for DIF detection
 
 This R-package allows effiecient item-wise score-based tests for DIF-detection. The `scDIFtest` is nothing more than a handy wrapper around the `sctest` function from the `strucchange`-pakcage. `scDIFtest` only works for fitted IRT models that are returned by the `mirt`-pakcage. The computation of the scores is also done by the `mirt`-pakcage.
@@ -14,6 +16,3 @@ The package can be installed using using the `devtools`-package:
 install.packages("devtools")
 devtools::install_github("ddebeer/scDIFtest")
 ```
-
-
-

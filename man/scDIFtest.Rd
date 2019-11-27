@@ -26,6 +26,23 @@ items.}
 
 \item{...}{other argements passed to the sctest method.}
 }
+\value{
+An object of class \code{scDIFtest} \link{scDIFtest-Methods}, which is a list with three elements
+   \describe{
+     \item{tests}{A named list with a number of elements equal to the number of
+                  the items for which DIF should be detected. Each element
+                  contains information both about the test \code{single_test}
+                  as well as the \code{\link[strucchange]{efpFunction}}}
+     \item{info}{A named list with two elements. \code{test_info} contains
+                 information such as used test statistic and the used covariate.
+                 \code{item_info} contains information about the items such as
+                 the item types as well as the columnumbers of the score matrix
+                 that correspond to the estimated parameters of the items.}
+     \item{gefp}{The Generalized Empirical M-Fluctuation Process (\code{gefp})
+                 based on the complete model with all the estimated parameters
+                 (see \code{\link[strucchange]{gefp}}).}
+   }
+}
 \description{
 A function that executes item-wise score-based DIF tests. After fitting an
 IRT model with \code{\link[mirt]{mirt}}, the fitted object can be used to
@@ -45,4 +62,14 @@ the Double Maximum (\code{"DM"}) is used; for \code{ordered} vectors the
 Maximum Lagrange Multiplier Test for Ordered Groups (\code{"maxLMo"}) is
 used; and for \code{factor}, \code{character}, and \code{logical} vectors the
 Lagrange Multiplier Test for Unordered Groups is used.
+}
+\examples{
+  # Note that the Generalized Empirical M-Fluctuation Process (gefp) based on all
+  #   the estimated parameters in the model is an element of the resulting
+  #   scDIFtest object. This means that one can use this gefp to test the
+  #   general hypothesis of measurement invariance with respect to the
+  #   chosen covariate.
+  strucchange::sctest(DIF$gefp)
+
+
 }

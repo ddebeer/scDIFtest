@@ -1,6 +1,35 @@
-#' Methods for class "scDIFtest"
+#' Methods for the scDIFtest-class
 #'
+#' \code{print}, \code{summary}, and \code{plot} methods for objects of the
+#' \code{scDIFtest-class}, as returned by \code{\link{scDIFtest}}. See details
+#' for more information about the methods.
 #'
+#' The \code{print} method, when\code{item_selection = NULL}, gives a summary
+#' of all the tests that were executed (i.e., for all items). When specific
+#' items are selected, the \code{print} method is called repeatedly for each
+#' individual \code{sctest} corresponding with the selected items.
+#'
+#' The \code{summary} method computes a data frame with a row for each item
+#' that was included in the test. The columns are:
+#'   \describe{
+#'      \item{item_type}{The estimated IRT model per item}
+#'      \item{n_est_pars}{The number of estimated parameters per item}
+#'      \item{statistic}{The value for the used statistic per item}
+#'      \item{p.value}{The p-value per item}
+#'      \item{p.fdr}{The corrected p-value controling the false discovery rate
+#'      (Benjamini & Hochberg, 1995). See \code{\link[stats]{p.adjust}} for
+#'      details.}
+#'    }
+#'
+#'  The \code{plot} method call the \code{plot} method repeatedly for the
+#'  \code{gepf} that corresponds with the exicuted score test for each of the
+#'  selected items. When no items are selected, the \code{plot} method results
+#'  in an error.
+#'
+#' @references Benjamini, Y., and Hochberg, Y. (1995). Controlling the false
+#' discovery rate: a practical and powerful approach to multiple testing.
+#' \emph{Journal of the Royal Statistical Society Series B, 57,} 289-300.
+#' \url{http://www.jstor.org/stable/2346101.}
 #'
 #'
 #' @param x an object of class \code{scDIFtest}
@@ -14,10 +43,10 @@
 #' @exportMethod summary.scDIFtest
 #' @exportMethod plot.scDIFtest
 #'
+#' @name scDIFtest-Methods
 #'
-#'
-
-# print method
+#' @rdname scDIFtest-Methods
+#' @name print.scDIFtest
 print.scDIFtest <- function(x, item_selection = NULL, ...){
 
   tests <- x$tests
@@ -55,7 +84,8 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
 }
 
 
-# summary method
+#' @rdname scDIFtest-Methods
+#' @name summary.scDIFtest
 summary.scDIFtest <- function(x, method = "fdr", ...){
   tests <- x$tests
   item_info <- x$info$item_info
@@ -72,7 +102,8 @@ summary.scDIFtest <- function(x, method = "fdr", ...){
 }
 
 
-# plot method
+#' @rdname scDIFtest-Methods
+#' @name plot.scDIFtest
 plot.scDIFtest <- function(x, item_selection = NULL, ...){
   if(is.null(item_selection))
     stop("Choose an item for which the empirical fluctuation process shoud ",

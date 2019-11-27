@@ -33,8 +33,29 @@
 #' @param decorrelate a logical. Should the process be decorrelated?
 #' @param ... other argements passed to the sctest method.
 #'
+#' @return An object of class \code{scDIFtest} \link{scDIFtest-Methods}, which is a list with three elements
+#'    \describe{
+#'      \item{tests}{A named list with a number of elements equal to the number of
+#'                   the items for which DIF should be detected. Each element
+#'                   contains information both about the test \code{single_test}
+#'                   as well as the \code{\link[strucchange]{efpFunction}}}
+#'      \item{info}{A named list with two elements. \code{test_info} contains
+#'                  information such as used test statistic and the used covariate.
+#'                  \code{item_info} contains information about the items such as
+#'                  the item types as well as the columnumbers of the score matrix
+#'                  that correspond to the estimated parameters of the items.}
+#'      \item{gefp}{The Generalized Empirical M-Fluctuation Process (\code{gefp})
+#'                  based on the complete model with all the estimated parameters
+#'                  (see \code{\link[strucchange]{gefp}}).}
+#'    }
 #'
-#'
+#' @examples
+#'   # Note that the Generalized Empirical M-Fluctuation Process (gefp) based on all
+#'   #   the estimated parameters in the model is an element of the resulting
+#'   #   scDIFtest object. This means that one can use this gefp to test the
+#'   #   general hypothesis of measurement invariance with respect to the
+#'   #   chosen covariate.
+#'   strucchange::sctest(DIF$gefp)
 #'
 #'
 #' @export scDIFtest

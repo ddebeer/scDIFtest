@@ -1,4 +1,5 @@
 library(mirt)
+library(mvtnorm)
 library(strucchange)
 library(scDIFtest)
 
@@ -16,9 +17,9 @@ test <- scDIFtest(mod, order_by = metric)
 test
 dim(test$gefp$process)
 
-scDIFtest(mod, order_by = logical)
-scDIFtest(mod, order_by = ordered)
-scDIFtest(mod, order_by = factor)
+print(scDIFtest(mod, order_by = logical))
+print(scDIFtest(mod, order_by = ordered))
+print(scDIFtest(mod, order_by = factor))
 
 scDIFtest(mod, order_by = metric, functional = "maxmosum")
 scDIFtest(mod, order_by = metric, functional = "suplm")

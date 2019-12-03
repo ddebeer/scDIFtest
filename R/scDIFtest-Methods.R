@@ -33,6 +33,7 @@
 #'
 #'
 #' @param x an object of class \code{scDIFtest}
+#' @param object an object of class \code{scDIFtest}
 #' @param item_selection either \code{NULL} or an integer vector selecting the
 #'         item numbers. When \code{items = NULL} (the default), the DIF test
 #'         is done for all items.

@@ -22,6 +22,8 @@ is done for all items.}
 
 \item{...}{other argements passed to the method.}
 
+\item{object}{an object of class \code{scDIFtest}}
+
 \item{method}{one of the strings in \code{p.adjust.methods}.}
 }
 \description{

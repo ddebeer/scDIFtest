@@ -87,9 +87,9 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
 #' @rdname scDIFtest-Methods
 #' @name summary.scDIFtest
 #' @export
-summary.scDIFtest <- function(x, method = "fdr", ...){
-  tests <- x$tests
-  item_info <- x$info$item_info
+summary.scDIFtest <- function(object, method = "fdr", ...){
+  tests <- object$tests
+  item_info <- object$info$item_info
   summary <- as.data.frame(do.call(rbind, lapply(tests, function(test)
     unlist(test$single_test[1:2]))))
 

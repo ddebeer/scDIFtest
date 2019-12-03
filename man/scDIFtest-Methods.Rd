@@ -9,7 +9,7 @@
 \usage{
 \method{print}{scDIFtest}(x, item_selection = NULL, ...)
 
-\method{summary}{scDIFtest}(x, method = "fdr", ...)
+\method{summary}{scDIFtest}(object, method = "fdr", ...)
 
 \method{plot}{scDIFtest}(x, item_selection = NULL, ...)
 }

@@ -41,9 +41,9 @@
 #'
 #' @importFrom graphics plot
 #' @importFrom stats p.adjust
-#' @exportMethod print.scDIFtest
-#' @exportMethod summary.scDIFtest
-#' @exportMethod plot.scDIFtest
+#' @export print.scDIFtest
+#' @export summary.scDIFtest
+#' @export plot.scDIFtest
 #'
 #' @name scDIFtest-Methods
 #'

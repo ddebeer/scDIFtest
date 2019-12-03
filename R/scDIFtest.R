@@ -61,6 +61,7 @@
 #'
 #'
 #' @export scDIFtest
+#' @exportClass scDIFtest
 #' @importFrom zoo zoo
 #' @importFrom sandwich estfun
 #' @importFrom strucchange sctest

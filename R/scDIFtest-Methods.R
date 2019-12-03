@@ -41,14 +41,12 @@
 #'
 #' @importFrom graphics plot
 #' @importFrom stats p.adjust
-#' @export print.scDIFtest
-#' @export summary.scDIFtest
-#' @export plot.scDIFtest
 #'
 #' @name scDIFtest-Methods
 #'
 #' @rdname scDIFtest-Methods
 #' @name print.scDIFtest
+#' @export
 print.scDIFtest <- function(x, item_selection = NULL, ...){
 
   tests <- x$tests
@@ -88,6 +86,7 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
 
 #' @rdname scDIFtest-Methods
 #' @name summary.scDIFtest
+#' @export
 summary.scDIFtest <- function(x, method = "fdr", ...){
   tests <- x$tests
   item_info <- x$info$item_info
@@ -106,6 +105,7 @@ summary.scDIFtest <- function(x, method = "fdr", ...){
 
 #' @rdname scDIFtest-Methods
 #' @name plot.scDIFtest
+#' @export
 plot.scDIFtest <- function(x, item_selection = NULL, ...){
   if(is.null(item_selection))
     stop("Choose an item for which the empirical fluctuation process shoud ",

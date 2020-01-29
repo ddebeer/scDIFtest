@@ -4,15 +4,21 @@
 \alias{scDIFtest}
 \title{A score-based item-wise DIF test}
 \usage{
-scDIFtest(object, order_by = NULL, functional = NULL,
-  item_selection = NULL, decorrelate = TRUE, ...)
+scDIFtest(
+  object,
+  DIF_covariate = NULL,
+  functional = NULL,
+  item_selection = NULL,
+  decorrelate = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{a fitted model object of class \code{\link[mirt]{SingleGroupClass-class}}
 or \code{\link[mirt]{MultipleGroupClass-class}}, resulting from an IRT analysis
 using the \code{mirt}-package.}
 
-\item{order_by}{a vector with the person covariate to use for the DIF-test.
+\item{DIF_covariate}{a vector with the person covariate to use for the DIF-test.
 The covariate can be categorical, ordered categorical or numerical.}
 
 \item{functional}{a character specifying the functional (or test statistic) to
@@ -57,7 +63,7 @@ For more information about the functional see the documentation of
 \code{\link[strucchange]{sctest.default}} or
 \code{\link[strucchange]{sctest.formula}}. When \code{functional = NULL}
 (which is the default), the functional is chosen based on the class of
-\code{order_by}. In this case, for \code{integer} and \code{numeric} vectors
+\code{DIF_covariate}. In this case, for \code{integer} and \code{numeric} vectors
 the Double Maximum (\code{"DM"}) is used; for \code{ordered} vectors the
 Maximum Lagrange Multiplier Test for Ordered Groups (\code{"maxLMo"}) is
 used; and for \code{factor}, \code{character}, and \code{logical} vectors the

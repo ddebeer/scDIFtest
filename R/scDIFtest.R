@@ -12,7 +12,7 @@
 #' \code{\link[strucchange]{sctest.default}} or
 #' \code{\link[strucchange]{sctest.formula}}. When \code{functional = NULL}
 #' (which is the default), the functional is chosen based on the class of
-#' \code{order_by}. In this case, for \code{integer} and \code{numeric} vectors
+#' \code{DIF_covariate}. In this case, for \code{integer} and \code{numeric} vectors
 #' the Double Maximum (\code{"DM"}) is used; for \code{ordered} vectors the
 #' Maximum Lagrange Multiplier Test for Ordered Groups (\code{"maxLMo"}) is
 #' used; and for \code{factor}, \code{character}, and \code{logical} vectors the
@@ -23,7 +23,7 @@
 #' @param object a fitted model object of class \code{\link[mirt]{SingleGroupClass-class}}
 #'  or \code{\link[mirt]{MultipleGroupClass-class}}, resulting from an IRT analysis
 #'  using the \code{mirt}-package.
-#' @param order_by a vector with the person covariate to use for the DIF-test.
+#' @param DIF_covariate a vector with the person covariate to use for the DIF-test.
 #'  The covariate can be categorical, ordered categorical or numerical.
 #' @param functional a character specifying the functional (or test statistic) to
 #'  be used. See details for more information.
@@ -67,7 +67,7 @@
 #' @importFrom strucchange sctest
 #' @importFrom mirt extract.mirt estfun.AllModelClass
 #'
-scDIFtest <- function(object, order_by = NULL, functional = NULL, item_selection = NULL,
+scDIFtest <- function(object, DIF_covariate = NULL, functional = NULL, item_selection = NULL,
                       decorrelate = TRUE, ...)
   {
   # extract from mirt-object
@@ -86,13 +86,13 @@ scDIFtest <- function(object, order_by = NULL, functional = NULL, item_selection
   n <- NROW(scores)
   k <- NCOL(scores)
 
-  if (is.null(order_by))
-    order_by <- seq_len(n)
-  order_name <- deparse(substitute(order_by))
-  index <- order(order_by)
+  if (is.null(DIF_covariate))
+    DIF_covariate <- seq_len(n)
+  DIF_covariate_name <- deparse(substitute(DIF_covariate))
+  index <- order(DIF_covariate)
   scores <- scores[index, , drop = FALSE]
-  order_by <- order_by[index]
-  z <- order_by
+  DIF_covariate <- DIF_covariate[index]
+  z <- DIF_covariate
   if(is.character(z)) z <- as.factor(z)
   z <- as.numeric(z)
 
@@ -124,21 +124,19 @@ scDIFtest <- function(object, order_by = NULL, functional = NULL, item_selection
                par = NULL,
                lim.process = "Brownian bridge",
                type.name = "M-fluctuation test",
-               order.name = order_name,
+               order.name = DIF_covariate_name,
                J12 = J12)
   class(gefp) <- "gefp"
 
   ## set up functional if specified as character
   if(is.null(functional)){
-    class <- class(order_by)
+    class <- class(DIF_covariate)
     functional <- if("ordered" %in% class) {
       "maxLMo"
     } else if (class %in% c("factor", "logical", "character")){
       "LMuo"
     } else if (class %in% c("integer", "numeric")) "dm"
   }
-
-  stat_name <- substitute(functional)
 
   if(is.character(functional)) {
     functional <- tolower(functional)
@@ -148,9 +146,22 @@ scDIFtest <- function(object, order_by = NULL, functional = NULL, item_selection
                          "mosum" = "maxmosum",
                          functional
     )
-    if(is.null(order_by) & functional %in% c("lmuo", "wdmo", "maxlmo")) {
-      stop("'order_by' must provide a grouping of the observations")
+    if(is.null(DIF_covariate) & functional %in% c("lmuo", "wdmo", "maxlmo")) {
+      stop("'DIF_covariate' must provide a grouping of the observations")
     }
+    
+  }
+  
+  stat_name <- 'if'(is.character(functional), functional, substitute(functional))
+  
+  if(tolower(stat_name) %in% c("dm", "cvm", "maxlm", "lmuo", "wdmo", "maxlmo")){
+    stat_name <- switch(stat_name,
+                        dm = "Double Maximum Test",
+                        cvm =  "Cramer-von Mises Test",
+                        maxlm = "Maximum Lagrange Multiplier Test",
+                        lmuo = "Lagrange Multiplier Test for Unordered Groups",
+                        wdmo = "Weighted Double Maximum Test for Ordered Groups",
+                        maxlmo = "Maximum Lagrange Multiplier Test for Ordered Groups")
   }
 
 
@@ -163,9 +174,9 @@ scDIFtest <- function(object, order_by = NULL, functional = NULL, item_selection
                          "cvm" = strucchange::meanL2BB,
                          "suplm" = strucchange::supLM(...),
                          "range" = strucchange::rangeBB,
-                         "lmuo" = strucchange::catL2BB(factor(order_by)),
-                         "wdmo" = strucchange::ordwmax(factor(order_by)),
-                         "maxlmo" = strucchange::ordL2BB(factor(order_by), nproc = length(colNrs), nobs = n, ...),
+                         "lmuo" = strucchange::catL2BB(factor(DIF_covariate)),
+                         "wdmo" = strucchange::ordwmax(factor(DIF_covariate)),
+                         "maxlmo" = strucchange::ordL2BB(factor(DIF_covariate), nproc = length(colNrs), nobs = n, ...),
                          "maxmosum" = strucchange::maxMOSUM(...),
                          stop("Unknown efp functional.")
     )
@@ -187,7 +198,7 @@ scDIFtest <- function(object, order_by = NULL, functional = NULL, item_selection
   names(tests) <- names(colNrs_list)
   out <- list(tests = tests,
             info = list(test_info = list(stat_name = stat_name,
-                                         order_name = order_name),
+                                         DIF_covariate = DIF_covariate),
                         item_info = list(
                           colNrs = colNrs_list,
                           item_type = itemtype[allItemNames %in% names(tests)])),

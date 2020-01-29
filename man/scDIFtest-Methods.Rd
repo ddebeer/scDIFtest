@@ -42,14 +42,14 @@ that was included in the test. The columns are:
   \describe{
      \item{item_type}{The estimated IRT model per item}
      \item{n_est_pars}{The number of estimated parameters per item}
-     \item{statistic}{The value for the used statistic per item}
-     \item{p.value}{The p-value per item}
-     \item{p.fdr}{The corrected p-value controling the false discovery rate
+     \item{stat}{The value for the used statistic per item}
+     \item{p_value}{The p-value per item}
+     \item{p_fdr}{The corrected p-value controling the false discovery rate
      (Benjamini & Hochberg, 1995). See \code{\link[stats]{p.adjust}} for
      details.}
    }
 
-The \code{plot} method call the \code{plot} method repeatedly for the
+ The \code{plot} method call the \code{plot} method repeatedly for the
  \code{gepf} that corresponds with the exicuted score test for each of the
  selected items. When no items are selected, the \code{plot} method results
  in an error.

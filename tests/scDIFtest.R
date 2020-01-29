@@ -12,16 +12,16 @@ metric <- rnorm(nObs)
 ordered <- ordered(sample(1:5, size = nObs, replace = TRUE))
 factor <- factor(sample(1:2, size = nObs, replace = TRUE))
 
-test <- scDIFtest(mod, order_by = metric)
+test <- scDIFtest(mod, DIF_covariate = metric)
 test
 dim(test$gefp$process)
 
-scDIFtest(mod, order_by = logical)
-scDIFtest(mod, order_by = ordered)
-scDIFtest(mod, order_by = factor)
+scDIFtest(mod, DIF_covariate = logical)
+scDIFtest(mod, DIF_covariate = ordered)
+scDIFtest(mod, DIF_covariate = factor)
 
-scDIFtest(mod, order_by = metric, functional = "maxmosum")
-scDIFtest(mod, order_by = metric, functional = "suplm")
+scDIFtest(mod, DIF_covariate = metric, functional = "maxmosum")
+scDIFtest(mod, DIF_covariate = metric, functional = "suplm")
 
 
 
@@ -39,6 +39,6 @@ print(test, digits = 3)
 # mod <- mirt(model = 1, data = data.timssAusTwn.scored[, -c(12:14)])
 #
 # mod
-# test <- scDIFtest(mod, order_by = factor(data.timssAusTwn.scored$ITSEX))
+# test <- scDIFtest(mod, DIF_covariate = factor(data.timssAusTwn.scored$ITSEX))
 # test
 # print(test, item_selection = 4)

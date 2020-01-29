@@ -14,9 +14,9 @@
 #'   \describe{
 #'      \item{item_type}{The estimated IRT model per item}
 #'      \item{n_est_pars}{The number of estimated parameters per item}
-#'      \item{statistic}{The value for the used statistic per item}
-#'      \item{p.value}{The p-value per item}
-#'      \item{p.fdr}{The corrected p-value controling the false discovery rate
+#'      \item{stat}{The value for the used statistic per item}
+#'      \item{p_value}{The p-value per item}
+#'      \item{p_fdr}{The corrected p-value controling the false discovery rate
 #'      (Benjamini & Hochberg, 1995). See \code{\link[stats]{p.adjust}} for
 #'      details.}
 #'    }
@@ -98,8 +98,8 @@ summary.scDIFtest <- function(object, method = "fdr", ...){
   summary <- cbind(item_type = item_info$item_type ,
                    n_est_pars = sapply(item_info$colNrs, length),
                    summary, p.adjust(summary[,2], method = method))
-  names(summary) <- c("item_type", "n_est_pars", "statistic", "p.value",
-                      paste0("p.", method))
+  names(summary) <- c("item_type", "n_est_pars", "stat", "p_value",
+                      paste0("p_", method))
   summary
 }
 

@@ -58,7 +58,7 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
     cat("\n")
     cat(strwrap(paste0("Score Based DIF-tests for ", dim(out)[1], " items"),
                 prefix = "\t"), sep = "\n")
-    cat(strwrap(paste0("Person covariate: ", test_info$order_name),
+    cat(strwrap(paste0("Person covariate: ", test_info$DIF_covariate_name),
                 prefix = "\t"), sep = "\n")
     cat(strwrap(paste0("Test statistic type: ", test_info$stat_name),
                 prefix = "\t"), sep = "\n")

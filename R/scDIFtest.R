@@ -197,11 +197,13 @@ scDIFtest <- function(object, DIF_covariate = NULL, functional = NULL, item_sele
   tests <- lapply(colNrs_list, colNrs_sctest, ...)
   names(tests) <- names(colNrs_list)
   out <- list(tests = tests,
-            info = list(test_info = list(stat_name = stat_name,
-                                         DIF_covariate = DIF_covariate),
-                        item_info = list(
-                          colNrs = colNrs_list,
-                          item_type = itemtype[allItemNames %in% names(tests)])),
+            info = list(
+              test_info = list(stat_name = stat_name,
+                               DIF_covariate = DIF_covariate, 
+                               DIF_covariate_name = DIF_covariate_name),
+              item_info = list(
+                colNrs = colNrs_list,
+                item_type = itemtype[allItemNames %in% names(tests)])),
             gefp = gefp)
   class(out) <- "scDIFtest"
   return(out)

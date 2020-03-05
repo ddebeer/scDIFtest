@@ -1,7 +1,7 @@
 Package: scDIFtest
 Type: Package
 Title: Item-Wise Score-Based DIF tests
-Version: 0.1.0-01
+Version: 0.1.0-02
 Authors@R: c(
     person("Dries", "Debeer", email = "debeer.dries@gmail.com", 
     role = c("cre", "aut")))

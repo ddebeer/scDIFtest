@@ -45,6 +45,8 @@
 #'
 #' @name scDIFtest-Methods
 #'
+NULL
+
 #' @rdname scDIFtest-Methods
 #' @name print.scDIFtest
 #' @export

@@ -2,10 +2,6 @@ scDIFtest.Rproj
 .Rbuildignore
 .Rhistory
 .Rproj.user/
-Vignette/Vignette.Rproj
-Vignette/Vignette.aux
-Vignette/Vignette.bbl
-Vignette/Vignette.bcf
-Vignette/Vignette.log
-Vignette/Vignette.synctex.gz
+old-vignette
 
+inst/doc

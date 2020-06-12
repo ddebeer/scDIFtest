@@ -20,7 +20,7 @@
 item numbers. When \code{items = NULL} (the default), the DIF test
 is done for all items.}
 
-\item{...}{other argements passed to the method.}
+\item{...}{other arguments passed to the method.}
 
 \item{object}{an object of class \code{scDIFtest}}
 
@@ -44,13 +44,13 @@ that was included in the test. The columns are:
      \item{n_est_pars}{The number of estimated parameters per item}
      \item{stat}{The value for the used statistic per item}
      \item{p_value}{The p-value per item}
-     \item{p_fdr}{The corrected p-value controling the false discovery rate
+     \item{p_fdr}{The corrected p-value controlling the false discovery rate
      (Benjamini & Hochberg, 1995). See \code{\link[stats]{p.adjust}} for
      details.}
    }
 
  The \code{plot} method call the \code{plot} method repeatedly for the
- \code{gepf} that corresponds with the exicuted score test for each of the
+ \code{gepf} that corresponds with the executed score test for each of the
  selected items. When no items are selected, the \code{plot} method results
  in an error.
 }

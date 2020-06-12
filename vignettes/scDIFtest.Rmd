@@ -8,7 +8,7 @@ vignette: >
   %\VignetteIndexEntry{scDIFtest}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-abstract: This vignette, explains the installation of the `scDIFtest` package and provides an illustration of item-wise DIF-detection with the `scDIFtest`-function using a subset of the SPISA data set.   
+abstract: This vignette, explains the installation of the `scDIFtest` package and provides an illustration of item-wise DIF-detection with the `scDIFtest`-function using a subset of the `SPISA` data set.   
 keywords: "DIF-detection, IRT, score-based test, sturctural change test"
 date: "`r Sys.Date()`"
 bibliography: References.bib
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 
 
 
-The score-based _test_ framework for parameter instability has been proposed for testing measurement invariance in measurement models. Until now, the focus was on (a) testing the invariance of all parameters simultaniously, or (b) on testing the invariance of a single parameter in the model. However in educational and psychological assessments, the appropriatness of each items is of interest. For instance, the detection of differential item function (DIF) plays an important role in validating new items. The `scDIFtest` package provides a user-friendly method for detecting DIF by automatically and efficiently applying the tests from the score-based test framework to the individual items in the assessment. The main function of the `scDIFtest` package is the `scDIFtest` function, which is a wrapper around the `strucchange::sctest`-function. 
+The score-based _test_ framework for parameter instability has been proposed for testing measurement invariance in measurement models. Until now, the focus was on (a) testing the invariance of all parameters simultaneously, or (b) on testing the invariance of a single parameter in the model. However in educational and psychological assessments, the appropriateness of each items is of interest. For instance, the detection of differential item function (DIF) plays an important role in validating new items. The `scDIFtest` package provides a user-friendly method for detecting DIF by automatically and efficiently applying the tests from the score-based test framework to the individual items in the assessment. The main function of the `scDIFtest` package is the `scDIFtest` function, which is a wrapper around the `strucchange::sctest`-function. 
 
 
 To detect DIF with the `scDIFtest` package, first, the appropriate Item Response Theory (IRT) or Factor Analysis (FA) model should fitted using the `mirt` package. The `scDIFtest`-function can directly be used on the resulting `mirt`-object. Hence, in addition to the `scDIFtest`, the package `mirt` will typically also be loaded in the `R` session. For now, `scDIFtest` only works for IRT/FA models that were fitted using the `mirt` package, but we aim to extend this to other packages that fit IRT/FA models using maximum likelihood estimation. 
@@ -34,9 +34,9 @@ To detect DIF with the `scDIFtest` package, first, the appropriate Item Response
 
 ## Overview of the method
 
-In order to fit the IRT model and analyse DIF with the `scDIFtest`, the following steps are necessary:
+In order to fit the IRT model and analyze DIF with the `scDIFtest`, the following steps are necessary:
 
-1. installation of the `R}-package(s)
+1. installation of the `R`-package(s)
 1. data preparation
 1. fitting the IRT Model by using either the `mirt` or `multipleGroup`-function implemented in the `mirt` package @Chalmers
 1. detecting DIF by using `scDIFtest` @Debeer
@@ -63,7 +63,7 @@ Since, the `mirt` package @Chalmers is required for fitting the IRT/FA model of 
 
 ## Data preparation
 
-In this vignette, a subset of the SPISA data is used. This data is part of the `psychotree`-package, it can be accessed when the `psychotree} package is installed. To load the SPISA dataset:
+In this vignette, a subset of the `SPISA` data is used. This data is part of the `psychotree` package, it can be accessed when the `psychotree` package is installed. To load the `SPISA` dataset:
 
 
 ```{r get-data, eval = FALSE}
@@ -75,13 +75,13 @@ data("SPISA", package = "psychotree")
 data("SPISA", package = "psychotree")
 ```
 
-The SPISA data is a subsample from the general knowledge quiz "Studentenpisa" conducted online by the German weekly news magazine SPIEGEL @Spisa. The data contain the quiz results from 45 questions as well as sociodemographic data for 1075 university students from Bavaria @Spisa. Although there were 45 questions addressing different topics, this illustration is limited to the analysis of the nine sience questions (items 37 - 45). To analyze the data with `mirt`, the responses are converted to a data frame. 
+The SPISA data is a subsample from the general knowledge quiz "Studentenpisa" conducted online by the German weekly news magazine SPIEGEL @Spisa. The data contain the quiz results from 45 questions as well as socio-demographic data for 1075 university students from Bavaria @Spisa. Although there were 45 questions addressing different topics, this illustration is limited to the analysis of the nine science questions (items 37 - 45). To analyze the data with `mirt`, the responses are converted to a data frame. 
 
 ```{r get-responses}
 resp <- as.data.frame(SPISA$spisa[,37:45])
 ```
 
-In addition to the responses, the SPSA data also contains five sociodemographic variables (i.e., person covariates): 
+In addition to the responses, the SPISA data also contains five socio-demographic variables (i.e., person covariates): 
 
 ```{r get-summary}
 summary(SPISA[,2:6])
@@ -93,14 +93,14 @@ In this illustration, we will try to detect DIF along the following three covari
 
 1. `age` of the student in years (numeric covariate)
 1. `gender` of the student (unordered categorical covariate)
-1. and `spon`, which is the frequency of assessing the SPIEGEL online (SPON) magazine (ordered categorical covariate)
+1. and `spon`, which is the frequency of assessing the SPIEGEL ONline (SPON) magazine (ordered categorical covariate)
 
 
 
 
 ## Fitting the IRT model using either the `mirt` or `multipleGroup` function
 
-It is important to note that, for the package to work, the parameters in the assumed IRT model need to be be estimated using either the `mirt` or the `multipleGroup` function from the `mirt`-package. The `multipleGroup` function can model impact between groups of persons, which is not possible with the `mirt` function. Modeling impact is important when the goal is to detect DIF @DeMars. In this illustration, for instance, we test whether there is impact with respect to gender by comparing a model which allows ability differences between male and female students with a model that assumes there are no group differencesin ability. The relative fit of these two models is compared, and the best fitting model is selected for the DIF analysis. The general idea is that we want to avoid (a) false DIF detections that can be attributed to ability differences and (b) not detecting DIF that is masked by unmodeled ability differences.
+It is important to note that, for the package to work, the parameters in the assumed IRT model need to be be estimated using either the `mirt` or the `multipleGroup` function from the `mirt`-package. The `multipleGroup` function can model impact between groups of persons, which is not possible with the `mirt` function. Modeling impact is important when the goal is to detect DIF @DeMars. In this illustration, for instance, we test whether there is impact with respect to gender by comparing a model which allows ability differences between male and female students with a model that assumes there are no group difference in ability. The relative fit of these two models is compared, and the best fitting model is selected for the DIF analysis. The general idea is that we want to avoid (a) false cases of DIF detection that can be attributed to ability differences and (b) not detecting DIF that is masked due to not modeling ability differences.
 
 First the `mirt` package is loaded in the `R} session:
 
@@ -109,7 +109,7 @@ First the `mirt` package is loaded in the `R} session:
 library(mirt, quietly = TRUE)
 ```
 
-Then the two models are fit and compared. Note that in general we do not recommend using `verbose = FALSE}, but for this vignette it is more convenient.
+Then the two models are fit and compared. Note that in general we do not recommend using `verbose = FALSE`, but for this vignette it is more convenient.
 
 ```{r fit-models}
 fit_2PL <- mirt(data = resp, 
@@ -132,16 +132,16 @@ The comparison of the two models with `anova` yields the following results:
 anova(fit_2PL, fit_multiGroup)
 ```
 
-The `multipleGroup` model with ability differences between male and female test takers best fits the data (lower AIC and BIC; small $p$-value for the Likelihood Ratio Test). It seem like there are differences between male and female stundents with respect to the assessed science knowledge. Therefore, `multipleGroup} model  model is used in the DIF detection analysis. 
+The `multipleGroup` model with ability differences between male and female test takers best fits the data (lower AIC and BIC; small $p$-value for the Likelihood Ratio Test). It seem like there are differences between male and female students with respect to the assessed science knowledge. Therefore, the `multipleGroup` model is used in the DIF detection analysis. 
 
 
 ## Detecting DIF by using scDIFtest
 
-In the (sub)sections that follow, DIF is tested for three different covariates: gender, age and spon but only the DIF analysis for gender is explained in more detail. Yet the the used `R} commands are the same for any covariate. The interpretation is given for all of the covariates.
+In the (sub)sections that follow, DIF is tested for three different covariates: `gender`, `age` and `spon` but only the DIF analysis for gender is explained in more detail. Yet the the used `R` commands are the same for any covariate. The interpretation is given for all of the covariates.
 
 ### DIF by `gender`
 
-To test itemwise DIF along gender, the `scDIFtest` function is used with the fitted model object and `gender` as the `DIF_covariate` argument. Note that the `scDIFtest` package has to be loaded first.
+To test item wise DIF along gender, the `scDIFtest` function is used with the fitted model object and `gender` as the `DIF_covariate` argument. Note that the `scDIFtest` package has to be loaded first.
 
 ```{r dif-gender}
 library(scDIFtest)
@@ -152,7 +152,7 @@ The resulting object is assigned to `DIF_gender`. For a readable version of the 
 
 ## Interpreting the results
 
-In the two subsections that follow, the results regarding the analyses of itemwise DIF by `gender`, `age` and `spon` will be interpreted.
+In the two subsections that follow, the results regarding the analyses of item wise DIF by `gender`, `age` and `spon` will be interpreted.
 
 ### DIF by `gender`
 
@@ -166,7 +166,7 @@ First, in three lines some general information is given:
 
 1. the type of test that is performed
 1. the covariate along which DIF is tested (in this case `gender` ) and 
-1. the test statistic which is used, in this case the Lagrange-Multiplier-Test for unordered covariates, (LMUO; @Merkle2013, @Merkle2014).
+1. the test statistic which is used, in this case the Lagrange-Multiplier-Test for unordered covariates, (`LMuo`; @Merkle2013, @Merkle2014).
 
 
 After these three lines, a table with the main results is printed with one line for each item that was included in the DIF detection analysis. The columns of the table represent:
@@ -174,14 +174,14 @@ After these three lines, a table with the main results is printed with one line 
 1. the name of each item (in this case `"V1"` - `"V9"`)
 1. `item_type` the type of IRT model used for each item (in this case the two-Parameter Logistic Model (2PL))
 1. `n_est_pars`: the number of estimated parameters for each item
-1. `statistic`: the value for the statistic per item (in this case the LMuo statistic)
+1. `statistic`: the value for the statistic per item (in this case the `LMuo` statistic)
 1. `p-value`: the $p$-value per item
 1. `p.fdr`: the False-Discovery-Rate corrected $p$-value @Yoav
 
 
-The printed output indicates that, when a significance level of $.05$ is used, DIF along `gender} is detected in item V4 and in item V7: these two items function differently, depending on the gender of the students.
+The printed output indicates that, when a significance level of $.05$ is used, DIF along `gender` is detected in item V4 and in item V7: these two items function differently, depending on the gender of the students.
 
-When one of more items are selected using the `item_selection` argument of the `print` method, the underlying `sctest} objects (or M-fluctuation tests) are printed. 
+When one of more items are selected using the `item_selection` argument of the `print` method, the underlying `sctest` objects (or M-fluctuation tests) are printed. 
 
 ```{r print-dif-gender-selection}
 print(DIF_gender, item_selection = c("V4", "V7"))
@@ -192,7 +192,7 @@ Note that here the uncorrected $p$-values are given.
 
 ### DIF by `age`
 
-The results for the DIF-detection analysis with `age} as the covariate are:
+The results for the DIF-detection analysis with `age` as the covariate are:
 
 ```{r dif-age}
 DIF_age <- scDIFtest(fit_multiGroup, DIF_covariate = SPISA$age)
@@ -201,7 +201,7 @@ summary_age
 ```
 
 
-In this case, the Double Maximum Test for continuous numeric orderings (dm; @Merkle2013, @Merkle2014) is used. The results indicate that DIF along `age` is detected in three items: V4 ($p = `r round(summary_age[4, "p_value"], 3)`$), V6 ($p = `r round(summary_age[6, "p_value"], 3)`$), and V9 ($ p = `r round(summary_age[9, "p_value"], 3)`$). Note that the score-based framework has the power to detect DIF along numeric covariates, without assuming some functional form of the DIF.
+In this case, the Double Maximum Test for continuous numeric orderings (`dm`; @Merkle2013, @Merkle2014) is used. The results indicate that DIF along `age` is detected in three items: V4 ($p = `r round(summary_age[4, "p_value"], 3)`$), V6 ($p = `r round(summary_age[6, "p_value"], 3)`$), and V9 ($ p = `r round(summary_age[9, "p_value"], 3)`$). Note that the score-based framework has the power to detect DIF along numeric covariates, without assuming some functional form of the DIF.
 
 
 ### DIF by `spon`
@@ -212,7 +212,7 @@ DIF_spon <- scDIFtest(fit_multiGroup, DIF_covariate = SPISA$spon)
 DIF_spon
 ```
 
-In this case, the maximum Lagrange-Multiplier-Test (maxLMO; @Merkle2013, @Merkle2014) is used. Since all tests result in large $p$-values, we conclude that no DIF was detected along the `spon` covariate.
+In this case, the maximum Lagrange-Multiplier-Test (`maxLMO`; @Merkle2013, @Merkle2014) is used. Since all tests result in large $p$-values, we conclude that no DIF was detected along the `spon` covariate.
 
 
 ## References

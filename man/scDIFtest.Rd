@@ -30,7 +30,7 @@ items.}
 
 \item{decorrelate}{a logical. Should the process be decorrelated?}
 
-\item{...}{other argements passed to the sctest method.}
+\item{...}{other arguments passed to the \code{sctest} method.}
 }
 \value{
 An object of class \code{scDIFtest} \link{scDIFtest-Methods}, which is a list with three elements
@@ -42,7 +42,7 @@ An object of class \code{scDIFtest} \link{scDIFtest-Methods}, which is a list wi
      \item{info}{A named list with two elements. \code{test_info} contains
                  information such as used test statistic and the used covariate.
                  \code{item_info} contains information about the items such as
-                 the item types as well as the columnumbers of the score matrix
+                 the item types as well as the column numbers of the score matrix
                  that correspond to the estimated parameters of the items.}
      \item{gefp}{The Generalized Empirical M-Fluctuation Process (\code{gefp})
                  based on the complete model with all the estimated parameters
@@ -54,8 +54,8 @@ A function that executes item-wise score-based DIF tests. After fitting an
 IRT model with \code{\link[mirt]{mirt}}, the fitted object can be used to
 assess and test measurement invariance, using
 \code{\link[strucchange]{sctest}}. However, by default, all parameters of
-the fitted model are testsed simultaniously. This fuction applies the
-\code{\link[strucchange]{sctest}} to test for item-wise DIF, in an effecient
+the fitted model are tested simultaneously. This function applies the
+\code{\link[strucchange]{sctest}} to test for item-wise DIF, in an efficient
 way.
 }
 \details{

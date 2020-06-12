@@ -4,8 +4,8 @@
 #' IRT model with \code{\link[mirt]{mirt}}, the fitted object can be used to
 #' assess and test measurement invariance, using
 #' \code{\link[strucchange]{sctest}}. However, by default, all parameters of
-#' the fitted model are testsed simultaniously. This fuction applies the
-#' \code{\link[strucchange]{sctest}} to test for item-wise DIF, in an effecient
+#' the fitted model are tested simultaneously. This function applies the
+#' \code{\link[strucchange]{sctest}} to test for item-wise DIF, in an efficient
 #' way.
 #'
 #' For more information about the functional see the documentation of
@@ -31,7 +31,7 @@
 #' numbers. When \code{items = NULL} (the default), the DIF test is done for all
 #' items.
 #' @param decorrelate a logical. Should the process be decorrelated?
-#' @param ... other argements passed to the sctest method.
+#' @param ... other arguments passed to the \code{sctest} method.
 #'
 #' @return An object of class \code{scDIFtest} \link{scDIFtest-Methods}, which is a list with three elements
 #'    \describe{
@@ -42,7 +42,7 @@
 #'      \item{info}{A named list with two elements. \code{test_info} contains
 #'                  information such as used test statistic and the used covariate.
 #'                  \code{item_info} contains information about the items such as
-#'                  the item types as well as the columnumbers of the score matrix
+#'                  the item types as well as the column numbers of the score matrix
 #'                  that correspond to the estimated parameters of the items.}
 #'      \item{gefp}{The Generalized Empirical M-Fluctuation Process (\code{gefp})
 #'                  based on the complete model with all the estimated parameters

@@ -6,10 +6,8 @@ Authors@R: c(
     person("Dries", "Debeer", email = "debeer.dries@gmail.com", 
     role = c("cre", "aut")))
 Description: This R-package can be used for item-wise DIF tests for fitted
-            \code{\link{mirt}}, \code{\link{multipleGroup}} or 
-            \code{\link{bfactor}} models. Under the hood the 
-            \code{\link{sctest}} from the \code{\link{strucchange}}-package is
-            used.
+            'mirt', 'multipleGroup' or 'bfactor' models. Under the hood the 
+            'sctest' from the 'strucchange'-package is used.
 Imports: sandwich, 
          strucchange, 
          mirt,

@@ -2,7 +2,7 @@
 author: 
   name: Dries Debeer
   affiliation: ITEC, imec research group at KULeuven
-title: "scDIFtest"
+title: "scDIFtest: Efficient DIF detection"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{scDIFtest}
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 ```
 
 
-
+## DIF detection using the score-based test framework
 
 The score-based _test_ framework for parameter instability has been proposed for testing measurement invariance in measurement models. Until now, the focus was on (a) testing the invariance of all parameters simultaneously, or (b) on testing the invariance of a single parameter in the model. However in educational and psychological assessments, the appropriateness of each items is of interest. For instance, the detection of differential item function (DIF) plays an important role in validating new items. The `scDIFtest` package provides a user-friendly method for detecting DIF by automatically and efficiently applying the tests from the score-based test framework to the individual items in the assessment. The main function of the `scDIFtest` package is the `scDIFtest` function, which is a wrapper around the `strucchange::sctest`-function. 
 
@@ -213,6 +213,11 @@ DIF_spon
 ```
 
 In this case, the maximum Lagrange-Multiplier-Test (`maxLMO`; @Merkle2013, @Merkle2014) is used. Since all tests result in large $p$-values, we conclude that no DIF was detected along the `spon` covariate.
+
+
+## Conclusion
+
+`scDIFtest` is a user-friendly and efficient wrapper around the `sctest` function of the `strucchange` package. `scDIFtest` can be used to detect item-wise DIF, along both categorical and continuous _DIF covariates_. Note however, that the functionality is compatible with IRT models fit using the `mirt` package only. For now. 
 
 
 ## References

@@ -70,14 +70,35 @@ used; and for \code{factor}, \code{character}, and \code{logical} vectors the
 Lagrange Multiplier Test for Unordered Groups is used.
 }
 \examples{
-  # Note that the Generalized Empirical M-Fluctuation Process (gefp) based on all
-  #   the estimated parameters in the model is an element of the resulting
-  #   scDIFtest object. This means that one can use this gefp to test the
-  #   general hypothesis of measurement invariance with respect to the
-  #   chosen covariate.
-  \dontrun{
-  strucchange::sctest(DIF$gefp)
-  }
+\dontrun{
+library(mirt)
+library(scDIFtest)
+### data and model
+dat <- expand.table(LSAT7)
+nObs <- dim(dat)[1]
+mod <- mirt(dat, 1, itemtype = "2PL", constr = list(c(2, 1)))
+
+### DIF along a metric variable
+###  the default test statistic is the Double Maximum (dm)
+metric <- rnorm(nObs) 
+DIF_metric <- scDIFtest(mod, DIF_covariate = metric)
+DIF_metric
+plot(DIF_metric, 1)
+
+### DIF along an ordered categorical variable
+###  the default test statistic is the Maximum Lagrange Multiplier Test 
+###  for Ordered Groups (maxlmo)
+ordered <- ordered(sample(1:5, size = nObs, replace = TRUE))
+DIF_ordered <- scDIFtest(mod, DIF_covariate = ordered)
+summary(DIF_ordered)
+
+### Note that the Generalized Empirical M-Fluctuation Process (gefp) based on all
+###  the estimated parameters in the model is an element of the resulting
+###  scDIFtest object. This means that one can use this gefp to test the
+###  general hypothesis of measurement invariance with respect to the
+###  chosen covariate.
+strucchange::sctest(DIF$gefp)
+}
 
 
 }

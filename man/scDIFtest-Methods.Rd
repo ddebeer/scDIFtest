@@ -58,5 +58,4 @@ that was included in the test. The columns are:
 Benjamini, Y., and Hochberg, Y. (1995). Controlling the false
 discovery rate: a practical and powerful approach to multiple testing.
 \emph{Journal of the Royal Statistical Society Series B, 57,} 289-300.
-\url{http://www.jstor.org/stable/2346101.}
 }

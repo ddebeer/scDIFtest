@@ -1,9 +1,7 @@
 scDIFtest.Rproj
-.Rbuildignore
 .Rhistory
 .Rproj.user/
 old-vignette
-
-inst/doc
+inst
 doc
 Meta

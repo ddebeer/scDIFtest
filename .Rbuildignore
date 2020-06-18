@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.travis\.yml$
+^\.Rhistory$
+^doc$
+^Meta$
+^appveyor\.yml$
+^cran-comments.md$
+^NEWS.md$
+^README.md$

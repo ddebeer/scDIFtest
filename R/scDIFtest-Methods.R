@@ -29,7 +29,6 @@
 #' @references Benjamini, Y., and Hochberg, Y. (1995). Controlling the false
 #' discovery rate: a practical and powerful approach to multiple testing.
 #' \emph{Journal of the Royal Statistical Society Series B, 57,} 289-300.
-#' \url{http://www.jstor.org/stable/2346101.}
 #'
 #'
 #' @param x an object of class \code{scDIFtest}
@@ -76,12 +75,15 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
     stopifnot(item_selection %in% item_names)
 
     for(item in item_selection){
-      single_test <- tests[[item]]$single_test
-#      cat("\n")
+
+      cat("\n")
       cat(strwrap(paste0("DIF-test for ", item), prefix = "\t"), sep = "\n")
       cat(strwrap(paste0("Person covariate: ", test_info$DIF_covariate_name), prefix = "\t"), sep = "\n")
       cat(strwrap(paste0("Test statistic type: ", test_info$stat_name), prefix = "\t"), sep = "\n")
-      print(single_test,...)
+      'if'(is.character(tests[[item]]),
+           {cat("\n") 
+             cat(strwrap(tests[[item]]), sep = "\n")},
+           print(tests[[item]]$single_test, ...))
     }
   }
 }
@@ -93,10 +95,11 @@ print.scDIFtest <- function(x, item_selection = NULL, ...){
 summary.scDIFtest <- function(object, method = "fdr", ...){
   tests <- object$tests
   item_info <- object$info$item_info
-  summary <- as.data.frame(do.call(rbind, lapply(tests, function(test)
-    unlist(test$single_test[1:2]))))
-
-
+  summary <- as.data.frame(do.call(rbind, lapply(tests, function(test){
+    'if'(is.list(test), 
+         unlist(test$single_test[1:2]),
+         c("statistic.f(efp)" = NaN,  p.value = NaN))
+    })))
   summary <- cbind(item_type = item_info$item_type ,
                    n_est_pars = sapply(item_info$colNrs, length),
                    summary, p.adjust(summary[,2], method = method))
@@ -124,12 +127,18 @@ plot.scDIFtest <- function(x, item_selection = NULL, ...){
 
 
   for(item in item_selection){
-    single_gefp <- gefp
-    functional <- x$tests[[item]]$functional
-    single_gefp$process <- suppressWarnings(
-      gefp$process[, colNrs_list[[item]], drop = FALSE])
-    single_gefp$type.name = paste0(gefp$type.name, " for item ", item)
-    plot(single_gefp, functional = functional, ...)
+    test <- x$tests[[item]]
+    if(is.character(test)) {
+      warning(paste0("Plot not possible for item ", 
+                     item, ". ", test))
+    } else {
+      single_gefp <- gefp
+      single_gefp$process <- suppressWarnings(
+        gefp$process[, colNrs_list[[item]], drop = FALSE])
+      single_gefp$type.name = paste0(gefp$type.name, " for item ", item)
+      plot(single_gefp, functional = test$functional, ...)
+    } 
+
   }
 
 }

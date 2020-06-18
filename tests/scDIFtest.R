@@ -5,7 +5,7 @@ library(scDIFtest)
 ### data and model
 dat <- expand.table(LSAT7)
 nObs <- dim(dat)[1]
-mod <- mirt(dat, 2, itemtype = "3PL", constr = list(c(2, 1), c(18, 4)))
+mod <- mirt(dat, 1, itemtype = "2PL", constr = list(c(2, 1)))
 
 logical <- sample(size= nObs, c(TRUE, FALSE), replace = TRUE)
 metric <- rnorm(nObs)

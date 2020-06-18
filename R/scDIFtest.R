@@ -50,14 +50,35 @@
 #'    }
 #'
 #' @examples
-#'   # Note that the Generalized Empirical M-Fluctuation Process (gefp) based on all
-#'   #   the estimated parameters in the model is an element of the resulting
-#'   #   scDIFtest object. This means that one can use this gefp to test the
-#'   #   general hypothesis of measurement invariance with respect to the
-#'   #   chosen covariate.
-#'   \dontrun{
-#'   strucchange::sctest(DIF$gefp)
-#'   }
+#' \dontrun{
+#' library(mirt)
+#' library(scDIFtest)
+#' ### data and model
+#' dat <- expand.table(LSAT7)
+#' nObs <- dim(dat)[1]
+#' mod <- mirt(dat, 1, itemtype = "2PL", constr = list(c(2, 1)))
+#' 
+#' ### DIF along a metric variable
+#' ###  the default test statistic is the Double Maximum (dm)
+#' metric <- rnorm(nObs) 
+#' DIF_metric <- scDIFtest(mod, DIF_covariate = metric)
+#' DIF_metric
+#' plot(DIF_metric, 1)
+#' 
+#' ### DIF along an ordered categorical variable
+#' ###  the default test statistic is the Maximum Lagrange Multiplier Test 
+#' ###  for Ordered Groups (maxlmo)
+#' ordered <- ordered(sample(1:5, size = nObs, replace = TRUE))
+#' DIF_ordered <- scDIFtest(mod, DIF_covariate = ordered)
+#' summary(DIF_ordered)
+#' 
+#' ### Note that the Generalized Empirical M-Fluctuation Process (gefp) based on all
+#' ###  the estimated parameters in the model is an element of the resulting
+#' ###  scDIFtest object. This means that one can use this gefp to test the
+#' ###  general hypothesis of measurement invariance with respect to the
+#' ###  chosen covariate.
+#' strucchange::sctest(DIF$gefp)
+#' }
 #'
 #'
 #' @export scDIFtest
@@ -85,9 +106,13 @@ scDIFtest <- function(object, DIF_covariate = NULL, functional = NULL, item_sele
   # dimensions of the scores: number of contributions, and number of components
   n <- NROW(scores)
   k <- NCOL(scores)
+  
 
-  if (is.null(DIF_covariate))
+  if (is.null(DIF_covariate)){
     DIF_covariate <- seq_len(n)
+    covar_was_NULL <- TRUE
+  } else covar_was_NULL <- FALSE
+    
   DIF_covariate_name <- deparse(substitute(DIF_covariate))
   index <- order(DIF_covariate)
   scores <- scores[index, , drop = FALSE]
@@ -110,7 +135,7 @@ scDIFtest <- function(object, DIF_covariate = NULL, functional = NULL, item_sele
   if (decorrelate)
     process <- process %*% chol2inv(chol(J12))
   else {
-    process <- process / outer(rep(1, n), sqrt(diag(VAR)))
+    process <- process / outer(rep(1, n + 1), sqrt(diag(VAR)))
   }
 
   # create a gefp
@@ -146,8 +171,8 @@ scDIFtest <- function(object, DIF_covariate = NULL, functional = NULL, item_sele
                          "mosum" = "maxmosum",
                          functional
     )
-    if(is.null(DIF_covariate) & functional %in% c("lmuo", "wdmo", "maxlmo")) {
-      stop("'DIF_covariate' must provide a grouping of the observations")
+    if(covar_was_NULL & functional %in% c("lmuo", "wdmo", "maxlmo")) {
+      stop("For this 'functional', 'DIF_covariate' must provide a grouping of the observations. Does 'factor()' or 'ordered' does the trick'?")
     }
     
   }
@@ -186,7 +211,7 @@ scDIFtest <- function(object, DIF_covariate = NULL, functional = NULL, item_sele
 
     gefp$process <- suppressWarnings(
       gefp$process[, colNrs, drop = FALSE])
-    if(length(colNrs) > 2 & !decorrelate)
+    if(length(colNrs) > 1 & !decorrelate)
       return("No Result: The limiting process for this item is not a Brownian bridge. Use 'decorrelate = TRUE'.")
     single_test <- sctest(gefp, functional = functional, ...)
     single_test$data.name <- data.name
@@ -213,7 +238,7 @@ scDIFtest <- function(object, DIF_covariate = NULL, functional = NULL, item_sele
 
 
 ## Function to extract the column numbers of the score matrix (returned by
-##  estfun) that correspond with the estimated paramters specific items.
+##  estfun) that correspond with the estimated parameters of specific items.
 ## Returns a named list of number vectors.
 ## This function was written with help and contributions from Lennart Schneider.
 get_colNrs <- function(object, item_selection = NULL){

@@ -1,13 +1,14 @@
 Package: scDIFtest
 Type: Package
-Title: Item-Wise Score-Based DIF Tests
+Title: Item-Wise Score-Based DIF Detection
 Version: 0.1.0
 Authors@R: c(
     person("Dries", "Debeer", email = "debeer.dries@gmail.com", 
     role = c("cre", "aut")))
-Description: This R-package can be used for item-wise DIF tests for fitted
-            'mirt', 'multipleGroup' or 'bfactor' models. Under the hood the 
-            'sctest' from the 'strucchange'-package is used.
+Description: This R-package can be used to detect item-wise Differential Item 
+             Functioning (DIF) in fitted 'mirt', 'multipleGroup' or 
+             'bfactor' models. Under the hood the 'sctest' function from 
+             the 'strucchange'-package is used.
 Imports: sandwich, 
          strucchange, 
          mirt,

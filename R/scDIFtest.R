@@ -50,7 +50,7 @@
 #'    }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(mirt)
 #' library(scDIFtest)
 #' ### data and model

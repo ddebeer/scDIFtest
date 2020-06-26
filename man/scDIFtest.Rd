@@ -70,7 +70,7 @@ used; and for \code{factor}, \code{character}, and \code{logical} vectors the
 Lagrange Multiplier Test for Unordered Groups is used.
 }
 \examples{
-\dontrun{
+\donttest{
 library(mirt)
 library(scDIFtest)
 ### data and model

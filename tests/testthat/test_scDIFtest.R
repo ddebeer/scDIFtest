@@ -65,10 +65,14 @@ test_that("scDIFtest returns warnings and errors", {
 ### test scDIFtest-methods
 test_that("summary method works", {
   expect_is(s1, "data.frame")
-  expect_equal(s1[1, 3], 0.56138988383521)
-  expect_equal(s1[2, 4], 0.10967321768704)
+  sc1 <- sctest(mod, order.by = factor, functional = "LMuo", scores = mirt::estfun.AllModelClass, parm = 1)
+  expect_equal(s1[1, 3], sc1$statistic[[1]])
+  expect_equal(s1[1, 4], sc1$p.value[[1]])
   
-  expect_equal(s2[1, 3], 9.34718509764)
+  sc2 <- sctest(mod, scores = mirt::estfun.AllModelClass, 
+                decorrelate = FALSE, parm = 1)
+  expect_equal(s2[1, 3], sc2$statistic[[1]])
+  expect_equal(s2[1, 4], sc2$p.value[[1]])
   expect_equal(s2[2, 4], NaN)
 })
 

@@ -97,7 +97,8 @@ summary(DIF_ordered)
 ###  scDIFtest object. This means that one can use this gefp to test the
 ###  general hypothesis of measurement invariance with respect to the
 ###  chosen covariate.
-strucchange::sctest(DIF$gefp)
+ strucchange::sctest(DIF_metric$gefp)
+ strucchange::sctest(DIF_ordered$gefp)
 }
 
 

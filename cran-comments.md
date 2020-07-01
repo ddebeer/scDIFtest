@@ -1,5 +1,12 @@
 ## Submission
-This is the first submission to CRAN.
+This a new version.
+
+
+## fixes
+
+There was an error for check on r-patched-solaris-x86 
+=> fixed and checked via rhub.
+
 
 ## Test environments
 * local windows x86_64-w64-mingw32, R 4.0.1
@@ -7,11 +14,11 @@ This is the first submission to CRAN.
 * linux xenial (on travis-ci), oldrel, release, devel
 * windows (on AppVeyor), release
 
-## R CMD check results
-0 errors | 0 warnings | 2 notes
 
-- New submission
-- DIF is the common abbriviation for Differential Item Functioning.
+## R CMD check results
+0 errors | 0 warnings | 1 notes
+Days since last update: 5
+
 
 ## Downstream dependencies
 
